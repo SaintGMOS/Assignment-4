@@ -14,8 +14,8 @@ class Stars
   void display()
   {
    
-    float adjustedX = x - mouseX * 0.05; 
-    float adjustedY = y - mouseY * 0.05;
+    float adjustedX = x - mouseX * .5; 
+    float adjustedY = y - mouseY * .5;
     
     fill(255); // White color for stars
     ellipse(adjustedX, adjustedY, 2, 2); // Draw star
@@ -32,7 +32,7 @@ Starz()
 {
     starCapacity = new ArrayList<Stars>();
     // Initialize the stars with random positions
-    for (int i = 0; i < 120; i++) 
+    for (int i = 0; i < 520; i++) 
     {
       float starX = random(-width, 2 * width); // Allow positions off-screen
       float starY = random(-height, 2 * height);
@@ -42,10 +42,12 @@ Starz()
   
     void display()
   {
-   
-    
-    
+    for (int i = 0; i < starCapacity.size(); i++) 
+    {
+    Stars s = starCapacity.get(i); // 
+    s.display(); // Display each star with movement
   }
 
+}
 
 }
