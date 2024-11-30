@@ -25,8 +25,8 @@ class Stars
   void display()
   {
    
-    float adjustedX = x - mouseX * .9; 
-    float adjustedY = y - mouseY * .9;
+    float adjustedX = x - mouseX * 1; 
+    float adjustedY = y - mouseY * 1;
     
     fill(255,255,255,opacity); // White color for stars
     ellipse(adjustedX, adjustedY, 3, 3); // Draw star
@@ -48,7 +48,7 @@ Starz()
     {
       float starX = random(-width, 2 * width); // Allow positions off-screen
       float starY = random(-height, 2 * height);
-      float starOpacity = random(150,255);  // Random opacity
+      float starOpacity = random(50,255);  // Random opacity
       starCapacity.add(new Stars(starX, starY, starOpacity)); 
     }
   }
