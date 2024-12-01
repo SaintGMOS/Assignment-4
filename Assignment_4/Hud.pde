@@ -21,13 +21,21 @@ class Hud
     rect(width/2, 60,200,60);
     triangle(300,30,400,30,400,90);
     triangle(700,30,600,90,600,30);
+    triangle(25,780,120,800,25,700);
+    triangle(975,780,920,800,975,700);
     
-    //  Red Butttons 
-   
-    videoEffect += 2;
+    // Console
+     strokeWeight(2);
+     stroke(46,46,46);
+     fill(54,54,54);
+     rect(width/2,height-40,width-60,150);
+    
+    //  Red Butttons    
+    videoEffect += .01;
     
     colorChange = .001 * frameCount;
     
+    stroke(193,0,0);
     fill(map(noise(colorChange), 0, 1, 150, 240), 0, 0); // Neon Red
     
     rect(100,800,100,20);
@@ -42,6 +50,7 @@ class Hud
     
     
     // White Effect on Red Buttons
+    noStroke();
     fill(map(noise(colorChange), 0, 1, 150, 255), 255, 255,150); // White
     rect(100,map(noise(videoEffect),0,1,785,805),100,1);
     rect(100,map(noise(videoEffect),0,1,790,810),100,1);
@@ -75,28 +84,34 @@ class Hud
     rect(220,map(noise(videoEffect),0,1,845.,875),30,1);
     
     
-    
+  
   // Health Bars Red
-  fill(255,0,0,180);
-  rect(width/2, 60,180,20);
+  noStroke();
   fill(255,0,0,150);
   rect(width/2, 60,90,50);
+  fill(255,0,0,180);
+  stroke(162,0,0);
+  rect(width/2, 60,180,20);
+  
   
   // Health Bars White
+  noStroke();
   fill(map(noise(colorChange), 0, 1, 150, 255), 255, 255,100); // White
   rect(width/2,map(noise(videoEffect),0,1,50,65),180,1);
   rect(width/2,map(noise(videoEffect),0,1,25,95),90,1);
   
   
   // Joystick
-   drawJoystick();
 
+  drawJoystick();
+  
+  
 
   
   
   // Crosshair
   int crosshairPlacementX = width/2;
-  int crosshairPlacementY = height/2;
+  int crosshairPlacementY = height/2-30;
   noFill();  
   strokeWeight(.5);
   
@@ -116,7 +131,26 @@ class Hud
   rect(crosshairPlacementX - 30, crosshairPlacementY, 50, 1);
   rect(crosshairPlacementX, crosshairPlacementY - 30, 1, 50);
   rect(crosshairPlacementX, crosshairPlacementY + 30, 1, 50);
+  
+  // Top Left Lines
+  rect(150,100,150,1);
+  rect(75,175,1,150);
+  // Bottom Right Lines
+  rect(150,725,150,1);
+  rect(75,650,1,150);
+  // Top Right Lines
+  rect(850,100,150,1);
+  rect(925,175,1,150);
+  // Bottom Right Lines
+  rect(850,725,150,1);
+  rect(925,650,1,150);
+  
+  
+  
+  
   noStroke();
+  
+ 
   
   
   }
@@ -124,54 +158,61 @@ class Hud
   void drawJoystick() 
   {
     
-    strokeWeight(5);
-    stroke(#313131);
-    float positionChange = 0;
-    
-    for(int i = 0; i < 2; i++)
-    {
-    
-    if(i == 1)
-    {
-      positionChange = 190;
-    
-    }
-    float baseX = width / 2 - 90+ positionChange;
+   
+    float baseX = width / 2;
     float baseY = height +40;
     float stickWidth = 40;
     float stickHeight = 100;
 
     // Calculate joystick tilt based on mouseX position
     float centerX = width / 2;
-    float range = 70; // Range for the joystick tilt
+    float range = 60; // Range for the joystick tilt
 
     // Calculate tilt based on horizontal mouse position
     float dx = mouseX - centerX;
-    float maxTilt = radians(20); // Maximum joystick tilt in radians
+    float maxTilt = radians(10); // Maximum joystick tilt in radians
     float tiltX = map(constrain(dx, -range, range), -range, range, -maxTilt, maxTilt);
-
+    
+    
+    
     pushMatrix();
     translate(baseX, baseY);
-
+    
     // Stick with tilt
+    if (!mousePressed) 
+    {
+      
+      fill(#FF0000); // Red Button
+      pushMatrix();
+      rotate(tiltX);
+      rect(0, -stickHeight - 50, stickWidth * 0.2, 5);
+      popMatrix();
+    }
+
+    // Base stick with tilt
+    stroke(28,28,28);
+    strokeWeight(1);
     fill(#555555);
     pushMatrix();
     rotate(tiltX); // Apply rotation based on tiltX
     rect(0, -stickHeight, stickWidth * 0.4, stickHeight);
+    rect(0, -stickHeight+25, 20, 10);
     popMatrix();
 
-
-    popMatrix();
-    
     // Base of joystick
     fill(#313131);
-    rect(width/2, height-10, 275,30);
+    rect(0, 0, 275, 30); // Adjusted base position to match joystick
+
+    popMatrix();
+    
+    // Grey Rectangle Covering the end of th joystick
+    fill(#555555);
+    ellipse(width/2,height,80,30);
+    
+    
+    
+    
     }
     
-  }
-  
-
-  
-  
 
 }
