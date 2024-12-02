@@ -4,7 +4,7 @@ PImage pirate; // Image for enemies
 ArrayList<Enemy> enemies;
 ArrayList<Laser> lasers; // Array list to store lasers
 int score;
-int spawnRate = 60; // Spawn a new enemy every # frames 
+int spawnRate = 30; // Spawn a new enemy every # frames 
 int spawnTimer = 0;
 boolean shotTaken = false; // Variable to track if a shot was taken
 
@@ -72,7 +72,7 @@ for (int i = enemies.size() - 1; i >= 0; i--) {
       enemy.explosionTimer--;
 
       // Remove the enemy when the explosion ends
-      if (enemy.explosionTimer <= -20) 
+      if (enemy.explosionTimer <= -50)  // Change the Value for how long the explosion last for
       {
         
         enemies.remove(i);
@@ -125,7 +125,8 @@ for (int i = enemies.size() - 1; i >= 0; i--) {
       
     }
   }
-  
+
+
   hud.display();
   
 }
@@ -135,7 +136,7 @@ void mousePressed()
   
   shotTaken = true; // Set shotTaken to true when the mouse is pressed
   int laserColor = color(random(255),random(255),random(255)); // Red color for the laser
-  lasers.add(new Laser(width/2-150, height, mouseX, mouseY, laserColor)); //You can use this to change thee origin
-  lasers.add(new Laser(width/2+150, height, mouseX, mouseY, laserColor)); //You can use this to change thee origin
+  lasers.add(new Laser(width/2, height-90, mouseX, mouseY, laserColor)); //You can use this to change thee origin
+  
   
 }

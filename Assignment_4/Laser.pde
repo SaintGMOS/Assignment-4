@@ -34,7 +34,7 @@ class Laser
   {
     fill(laserColor);
     noStroke();
-    ellipse(x, y, 20, 20); 
+    ellipse(x, y, random(5,20), random(5,20)); 
   }
 
 
