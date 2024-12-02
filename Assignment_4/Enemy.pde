@@ -5,33 +5,28 @@ class Enemy
   PVector acceleration;
   float size;
   boolean isHit;
-  PImage pirate; // Store the pirate image
+  boolean exploded;
   
   // Constructor to accept the starting position and the image
-  Enemy(PVector startPosition, PImage pirateImage)
+  Enemy(PVector startPosition) 
   {
     position = startPosition;
-    velocity = new PVector(0, 2); // Initial velocity
+    velocity = new PVector(0, 2); // Initial downward velocity
     acceleration = new PVector(0, 0.05); // Constant downward acceleration
-    size = 30;
-    isHit = false; // Checks if it's hit
-    pirate = pirateImage; // Assign the pirate image
+    size = 100;
+    isHit = false;
+    exploded = false;
   }
 
   void move()
   {
-    // Adjust horizontal position based on mouse movement
-    float mouseXOffset = mouseX - width / 2;
-    float mouseYOffset = mouseY - height / 2;
+    // Adjust the horizontal position with a smoother effect
+    float mouseXOffset = (mouseX - width / 2) * 0.01;
+    position.x += mouseXOffset; // Use += for more controlled movement
 
-    // Create the illusion of horizontal camera movement
-    position.x -= mouseXOffset * 0.01;
-
-    // Apply vertical adjustment for camera illusion
-    position.y += velocity.y - mouseYOffset * 0.01;
-
-    // Apply acceleration to velocity
+    // Apply vertical movement using velocity and acceleration
     velocity.add(acceleration);
+    position.y += velocity.y;
 
     // Constrain enemy within screen bounds
     position.x = constrain(position.x, 0 + size / 2, width - size / 2);
@@ -39,16 +34,25 @@ class Enemy
 
   void display() 
   {
-    if (!isHit)
+   if (!isHit) 
     {
-      // Display the pirate image at the enemy's position
-      image(pirate, position.x - size / 2, position.y - size / 2, size, size);
+      imageMode(CENTER);
+      image(pirate, position.x, position.y, size, size); // Display the pirate image
     }
   }
 
-  // Placeholder for hit detection method
-  void checkHit()
+  // Placeholder for hit detection 
+  boolean checkHit(float mouseX, float mouseY) 
   {
-    // Implement your/MY hehe Collision dettection logic
+    // Check if the mouse position is within the enemy's bounding circle
+    float distanceToMouse = dist(mouseX, mouseY, position.x, position.y);
+
+    // Return true if the distance is less than or equal to the enemy's size radius/area
+    if (distanceToMouse <= size / 2) 
+    {
+      isHit = true;
+      return true;
+    }
+    return false;
   }
 }

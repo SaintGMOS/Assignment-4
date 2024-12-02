@@ -13,6 +13,7 @@ ArrayList<Enemy> enemies;
 int score;
 int spawnRate = 120; // Spawn a new enemy every 120 frames (2 seconds at 60 FPS)
 int frameCounter = 0;
+boolean shotTaken = false; // Variable to track if a shot was taken
 
 void setup()
 {
@@ -24,12 +25,6 @@ void setup()
   score = 0;
   noCursor();
   frameRate(60);
-  // Create initial enemies at the top of the screen
-  for (int i = 0; i < 5; i++)
-  {
-    // Pass the enemy image to each new enemy
-    enemies.add(new Enemy(new PVector(random(100, width - 100), -30), pirate));
-  }
 }
 
 void draw()
@@ -37,30 +32,46 @@ void draw()
   background(0);
 
   starz.display();
-  hud.display();
-
+  
   frameCounter++;
 
   // Spawn new enemy based on spawnRate
-  if (frameCounter >= spawnRate) 
+   if (frameCounter >= spawnRate) 
   {
-    // Pass the enemy image to each new enemy
-    enemies.add(new Enemy(new PVector(random(100, width - 100), -30), pirate));
-    frameCounter = 0; // Reset the counter
+    enemies.add(new Enemy(new PVector(random(100, width - 100), -30))); // Add a new enemy
+    frameCounter = 0; // Reset frame counter (Basically If I remove this You'll get swarmed..DONT remove it
   }
 
   // Update and display enemies
-  for (int i = enemies.size() - 1; i >= 0; i--) 
+  for (int i = enemies.size() - 1; i >= 0; i--)
   {
     Enemy enemy = enemies.get(i);
     enemy.move();
     enemy.display();
-    enemy.checkHit();
+
+    // Check for shooting collision if a shot has been taken
+    if (shotTaken && enemy.checkHit(mouseX, mouseY)) 
+    {
+      enemy.isHit = true; // Set the enemy as hit
+      enemy.exploded = true; // Trigger explosion effect
+      enemies.remove(i); // Remove the enemy after it is hit
+      score += 10; // Increment score when an enemy is hit
+    }
 
     // Remove enemies that move off the bottom of the screen
-    if (enemy.position.y > height + enemy.size / 2)
+    if (enemy.position.y > height + enemy.size / 2) 
     {
       enemies.remove(i);
     }
   }
+
+  // Reset shotTaken after checking for collisions
+  shotTaken = false;
+  
+  hud.display();
+}
+
+void mousePressed()
+{
+  shotTaken = true; // Set shotTaken to true when the mouse is pressed
 }

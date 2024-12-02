@@ -1,13 +1,11 @@
 class Hud
 {
- 
+
     float colorChange;
     float videoEffect;
 
-  
   void display()
   {
-    
     
     rectMode(CENTER);
     noStroke();
@@ -82,9 +80,7 @@ class Hud
     rect(150,map(noise(videoEffect),0,1,855,870),50,1);
     
     rect(220,map(noise(videoEffect),0,1,845.,875),30,1);
-    
-    
-  
+     
   // Health Bars Red
   noStroke();
   fill(255,0,0,150);
@@ -92,26 +88,17 @@ class Hud
   fill(255,0,0,180);
   stroke(162,0,0);
   rect(width/2, 60,180,20);
-  
-  
+    
   // Health Bars White
   noStroke();
   fill(map(noise(colorChange), 0, 1, 150, 255), 255, 255,100); // White
   rect(width/2,map(noise(videoEffect),0,1,50,65),180,1);
   rect(width/2,map(noise(videoEffect),0,1,25,95),90,1);
   
-  
   // Joystick
-
   drawJoystick();
-  
-  
-
-  
-  
+   
   // Crosshair
-  int crosshairPlacementX = width/2;
-  int crosshairPlacementY = height/2-30;
   noFill();  
   strokeWeight(.5);
   
@@ -125,12 +112,12 @@ class Hud
   stroke(255,255,255,180);
   }
   
-  ellipse(crosshairPlacementX, crosshairPlacementY, 80, 80);
-  ellipse(crosshairPlacementX, crosshairPlacementY, 35, 35);
-  rect(crosshairPlacementX + 30, crosshairPlacementY, 50, 1);
-  rect(crosshairPlacementX - 30, crosshairPlacementY, 50, 1);
-  rect(crosshairPlacementX, crosshairPlacementY - 30, 1, 50);
-  rect(crosshairPlacementX, crosshairPlacementY + 30, 1, 50);
+  ellipse(mouseX, mouseY, 80, 80);
+  ellipse(mouseX, mouseY, 35, 35);
+  rect(mouseX + 30, mouseY, 45, 1);
+  rect(mouseX  - 30, mouseY, 45, 1);
+  rect(mouseX , mouseY - 30, 1, 45);
+  rect(mouseX , mouseY + 30, 1, 45);
   
   // Top Left Lines
   rect(150,100,150,1);
@@ -145,20 +132,13 @@ class Hud
   rect(850,725,150,1);
   rect(925,650,1,150);
   
-  
-  
-  
   noStroke();
-  
  
-  
-  
   }
   
   void drawJoystick() 
   {
     
-   
     float baseX = width / 2;
     float baseY = height +40;
     float stickWidth = 40;
@@ -173,15 +153,13 @@ class Hud
     float maxTilt = radians(10); // Maximum joystick tilt in radians
     float tiltX = map(constrain(dx, -range, range), -range, range, -maxTilt, maxTilt);
     
-    
-    
+
     pushMatrix();
     translate(baseX, baseY);
     
     // Stick with tilt
     if (!mousePressed) 
-    {
-      
+    {     
       fill(#FF0000); // Red Button
       pushMatrix();
       rotate(tiltX);
@@ -209,10 +187,6 @@ class Hud
     fill(#555555);
     ellipse(width/2,height,80,30);
     
-    
-    
-    
     }
     
-
 }
