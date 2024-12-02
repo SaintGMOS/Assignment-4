@@ -12,7 +12,8 @@ Hud hud;
 ArrayList<Enemy> enemies;
 int score;
 int spawnRate = 120; // Spawn a new enemy every 120 frames (2 seconds at 60 FPS)
-int frameCounter = 0;
+int spawnTimer = 0;
+
 boolean shotTaken = false; // Variable to track if a shot was taken
 
 void setup()
@@ -33,13 +34,13 @@ void draw()
 
   starz.display();
   
-  frameCounter++;
+  spawnTimer++;
 
   // Spawn new enemy based on spawnRate
-   if (frameCounter >= spawnRate) 
+   if (spawnTimer >= spawnRate) 
   {
     enemies.add(new Enemy(new PVector(random(100, width - 100), -30))); // Add a new enemy
-    frameCounter = 0; // Reset frame counter (Basically If I remove this You'll get swarmed..DONT remove it
+    spawnTimer = 0; // Reset frame counter (Basically If I remove this You'll get swarmed..DONT remove it
   }
 
   // Update and display enemies
@@ -54,6 +55,7 @@ void draw()
     {
       enemy.isHit = true; // Set the enemy as hit
       enemy.exploded = true; // Trigger explosion effect
+      createExplosion(enemy.position.x, enemy.position.y); // Trigger explosion
       enemies.remove(i); // Remove the enemy after it is hit
       score += 10; // Increment score when an enemy is hit
     }
@@ -74,4 +76,15 @@ void draw()
 void mousePressed()
 {
   shotTaken = true; // Set shotTaken to true when the mouse is pressed
+}
+
+void createExplosion(float x, float y)
+{
+  for (int i = 0; i < 20; i++) 
+  {
+    stroke(random(255), random(255), random(255));
+    strokeWeight(2);
+    ellipse(x, y, x + random(-50, 50), y + random(-50, 50));
+    // Change The size and coloring 
+  }
 }
