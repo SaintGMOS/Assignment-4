@@ -1,20 +1,11 @@
 class Hud
 {
-    
+
     float colorChange;
     float videoEffect;
-    
-    PImage turret;
-    float angle = 0; // Initial rotation angle
-    void setup() 
-    {
-    turret = loadImage("Turret.png"); // Load the image
-    }
 
   void display()
   {
-    // Turret
-    drawTurret();
     
     rectMode(CENTER);
     noStroke();
@@ -106,8 +97,6 @@ class Hud
   
   // Joystick
   drawJoystick();
-  
-  
    
   // Crosshair
   noFill();  
@@ -199,69 +188,5 @@ class Hud
     ellipse(width/2,height,80,30);
     
     }
-    
-     
- void drawTurret() 
-  {
-    
-    float baseXT = width / 2;
-    float baseYT = height -70;
-    float stickWidthT = 80;
-    float stickHeightT = 90;
-
-    // Calculate jTurret tilt based on mouseX position
-    float centerXT = width / 2;
-    float rangeT = 160; // Range for the Turret tilt / Speed of how fast it turns
-
-    // Calculate tilt based on horizontal mouse position
-    float dxT = mouseX - centerXT;
-    float maxTiltT = radians(50); // Maximum Turret tilt in radians 
-    float tiltXT = map(constrain(dxT, -rangeT, rangeT), -rangeT, rangeT, -maxTiltT, maxTiltT);
-    
-
-    pushMatrix();
-    translate(baseXT, baseYT);
-    
-    // Stick with tilt
-    if (!mousePressed) 
-    {     
-      
-      fill(36,36,36); // Red Button
-      
-    }
-    
-    pushMatrix();
-     rotate(tiltXT);
-     rect(0, -stickHeightT - 50, 15, 15);
-     popMatrix();
-    
-
-    // Base stick with tilt
-    stroke(28,28,28);
-    strokeWeight(1);
-    fill(#555555);
-    pushMatrix();
-    rotate(tiltXT); // Apply rotation based on tiltX
-    rect(0, -stickHeightT, stickWidthT * 0.4, stickHeightT);
-    rect(0, -stickHeightT+25, 20, 10);
-    rect(0, -stickHeightT+15, 20, 10);
-    rect(0, -stickHeightT+5, 20, 10);
-    rect(0, -stickHeightT-5, 20, 10);
-    rect(0, -stickHeightT-15, 20, 10);
-    rect(0, -stickHeightT-25, 20, 10);
-    rect(0, -stickHeightT-35, 20, 10);
-    rect(0, -stickHeightT-45, 20, 10);
-    popMatrix();
-
-
-    popMatrix();
-    
-   
-    }
-    
-    
-    
-    
-    
     
 }

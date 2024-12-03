@@ -25,8 +25,8 @@ class Stars
   void display()
   {
    
-    float adjustedX = x - mouseX * .7; 
-    float adjustedY = y - mouseY * .7;
+    float adjustedX = x - mouseX * 1; 
+    float adjustedY = y - mouseY * 1;
     
     fill(255,255,255,opacity); // White color for stars
     ellipse(adjustedX, adjustedY, 3, 3); // Draw star
