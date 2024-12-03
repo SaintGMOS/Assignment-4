@@ -1,33 +1,26 @@
 Starz starz;
 Hud hud;
 PImage pirate; // Image for enemies
-PImage title;
 ArrayList<Enemy> enemies;
 ArrayList<Laser> lasers; // Array list to store lasers
 int score;
-int spawnRate = 50; // Spawn a new enemy every # frames 
+int spawnRate = 30; // Spawn a new enemy every # frames 
 int spawnTimer = 0;
 boolean shotTaken = false; // Variable to track if a shot was taken
 PFont font;
-float effectMoverT;
-float effectMoverS;
-float goal;
-float colorChange;
-int roundedGoal;
+float effectMoverX;
+float effectMoverY;
 
 void setup()
 {
   
   size(1000, 900); // Set the window size to 1000x900 pixels
   pirate = loadImage("SP1.png"); // Load the enemy image
-  title = loadImage("SPT.png");
   starz = new Starz();
   hud = new Hud();
   enemies = new ArrayList<Enemy>();
   lasers = new ArrayList<Laser>(); // Initialize laser array
   score = 0;
-  goal = random(300,1000);
-  roundedGoal = round(goal/10) * 10;
   font = createFont("8bit.ttf",64); 
   textFont(font);
   frameRate(60);
@@ -38,32 +31,28 @@ void setup()
 void draw()
 {
   background(0);
-  effectMoverT = random(0,1);
-  effectMoverS = random(0,10);
+  effectMoverX = random(0,1);
+  effectMoverY = random(0,1);
   // Start Screen 
-  
+  starz.display();
    if(key != ENTER)
   {
-    
-  rectMode(CENTER);  
-  fill(#959595);
-  rect(width/2,height/2,width,height);
-  imageMode(CENTER);
-  image(title,(width/2+30),(height/2-50),600+effectMoverS,300+effectMoverS);  
-  image(pirate,(width/2+250)+effectMoverT,(height/2+190)+effectMoverT,70+effectMoverS,70+effectMoverS);  
-  rectMode(CENTER);
 
-  textSize(25);
-  fill(0);
-  text("Press Enter to Start",(width/2-155)-effectMoverT , (height/2 + 200)-effectMoverT );
+  imageMode(CENTER);
+  //image(pirate,(width/2+30)-effectMoverX,(height/2-50)-effectMoverX,325,325);
   
+  textSize(50);
+  text("Press Enter to Start",(width/2-300)-effectMoverX , (height/2 + 200)-effectMoverY );
+  rectMode(CENTER);
+  rect(width/2,height/2,width,height);
+  text("SPACE PIRATES",(width/2-300)-effectMoverX , (height/2 - 200)-effectMoverY );
   }
   
   if(key == ENTER)
   {
 
   spawnTimer++;
-  starz.display();
+
   // Spawn new enemy based on spawnRate
    if (spawnTimer >= spawnRate) 
   {
@@ -74,9 +63,7 @@ void draw()
   }
 
    // Update and display all enemies
-for (int i = enemies.size() - 1; i >= 0; i--)
-{
-  
+for (int i = enemies.size() - 1; i >= 0; i--) {
   Enemy enemy = enemies.get(i);
 
   if (enemy.exploded) 
@@ -111,7 +98,6 @@ for (int i = enemies.size() - 1; i >= 0; i--)
       {
         
         enemies.remove(i);
-        
         
       }
       
@@ -164,18 +150,6 @@ for (int i = enemies.size() - 1; i >= 0; i--)
 
 
   hud.display();
-  colorChange = .001 * frameCount;
-  fill(map(noise(colorChange), 0, 1, 150, 240), 0, 0);
-  rect(width/2+275,height/2+390,320,40);
-  textSize(25);
-  fill(255);
-  text("Score " + score + "  Goal " + roundedGoal ,(width/2+135)-effectMoverT , (height/2 + 400)-effectMoverT );
-  if(roundedGoal == score)
-  {
-    
-    stop();
-  
-  }
   
 }
 

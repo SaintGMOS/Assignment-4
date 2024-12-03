@@ -14,7 +14,7 @@ class Enemy
     
     position = startPosition;
     velocity = new PVector(0, 2); // Initial downward velocity
-    acceleration = new PVector(0, 0.05); // Constant downward acceleration
+    acceleration = new PVector(0, .1); // Constant downward acceleration
     size = 100;
     isHit = false;
     exploded = false;
@@ -26,7 +26,7 @@ class Enemy
   {
     
     // Adjust the horizontal position with a smoother effect
-    float mouseXOffset = (mouseX - width / 2) * 0.01;
+    float mouseXOffset = (mouseX - width / 2) * 0.009;
     position.x += mouseXOffset; // Use += for more controlled movement
 
     // Apply vertical movement using velocity and acceleration
