@@ -7,7 +7,9 @@ int score;
 int spawnRate = 30; // Spawn a new enemy every # frames 
 int spawnTimer = 0;
 boolean shotTaken = false; // Variable to track if a shot was taken
-
+PFont font;
+float effectMoverX;
+float effectMoverY;
 
 void setup()
 {
@@ -19,16 +21,33 @@ void setup()
   enemies = new ArrayList<Enemy>();
   lasers = new ArrayList<Laser>(); // Initialize laser array
   score = 0;
-  noCursor();
+  font = createFont("8bit.ttf",64); 
+  textFont(font);
   frameRate(60);
+    noCursor();
   
 }
 
 void draw()
 {
   background(0);
+  effectMoverX = random(0,1);
+  effectMoverY = random(0,1);
+  // Start Screen 
   starz.display();
+   if(key != ENTER)
+  {
+
+  imageMode(CENTER);
+  image(pirate,(width/2+30)-effectMoverX,(height/2-50)-effectMoverX,325,325);
   
+  textSize(50);
+  text("Press Enter to Start",(width/2-300)-effectMoverX , (height/2 + 200)-effectMoverY );
+  }
+  
+  if(key == ENTER)
+  {
+
   spawnTimer++;
 
   // Spawn new enemy based on spawnRate
@@ -131,6 +150,7 @@ for (int i = enemies.size() - 1; i >= 0; i--) {
   
 }
 
+}
 void mousePressed()
 {
   
