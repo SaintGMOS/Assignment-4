@@ -14,6 +14,8 @@ class Stars
   
   float x, y;  // Positions of the Stars
   float opacity;  // Opacity of the star
+  
+  // Constructor to initialize a star with its position and opacity
    Stars(float xPosition, float yPosition, float starOpacity)
     {
       
@@ -23,10 +25,10 @@ class Stars
     
     }
   
- 
+  // Method to display the star with mouse-dependent movement
   void display()
   {
-   
+    // Adjust star's position relative to mouse position
     float adjustedX = x - mouseX * .7; 
     float adjustedY = y - mouseY * .7;
     
@@ -40,32 +42,34 @@ class Stars
 class Starz
 {
   
-  ArrayList<Stars> starCapacity;
+  ArrayList<Stars> starCapacity; // List to hold multiple star objects
 
 Starz() 
 {
   
     int numberOfStars =  800;
     starCapacity = new ArrayList<Stars>();
+    
     // Initialize the stars with random positions
     for (int i = 0; i < numberOfStars; i++) 
     {
+      
       float starX = random(-width, 2 * width); // Allow positions off-screen
       float starY = random(-height, 2 * height);
       float starOpacity = random(50,255);  // Random opacity
-      starCapacity.add(new Stars(starX, starY, starOpacity)); 
+      starCapacity.add(new Stars(starX, starY, starOpacity)); // Add the star to the list
       
     }
     
   }
-  
+    // Method to display all the stars in the starCapacity list
     void display()
   {
     
     for (int i = 0; i < starCapacity.size(); i++) 
     {
       
-    Stars s = starCapacity.get(i); // 
+    Stars s = starCapacity.get(i); // Get the star
     s.display(); // Display each star with movement
     
   }

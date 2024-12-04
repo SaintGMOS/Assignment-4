@@ -8,6 +8,7 @@ class Laser
   int laserColor; // Color of the laser
 
 
+  // Constructor to initialize the Laser object
   Laser(float startX, float startY, float targetX, float targetY, int Color)
   {
     
@@ -15,7 +16,8 @@ class Laser
     y = startY;
     laserColor = Color;
     
-    // Calculate the direction vector from the origin to the target
+    // Calculate the direction vector from the starting point to the target point
+    // atan2 is used to calc the angle between the x-axis and the line connecting two points I'm pretty sure.....
     // https://processing.org/reference/atan2_.html
     float angle = atan2(targetY - startY, targetX - startX);
     dx = cos(angle) * speed;
@@ -23,6 +25,7 @@ class Laser
     
   }
 
+   // Method to update the laser's position based on its speed and direction
   void update()
   {
     // Update the position 
@@ -31,6 +34,7 @@ class Laser
     
   }
 
+  // Display the laser as an ellipse on the screen
   void display()
   {
     
@@ -40,7 +44,7 @@ class Laser
     
   }
 
-
+  // Check if the laser has gone off the screen
   boolean isOffScreen() 
   {
     

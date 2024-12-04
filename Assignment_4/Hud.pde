@@ -1,11 +1,12 @@
 class Hud
 {
     
-    float colorChange;
-    float videoEffect;
+    float colorChange;  // Variable for color animation effect
+    float videoEffect; // Variable for video effect animation
     
-    PImage turret;
+    PImage turret; // Image for the turret
     float angle = 0; // Initial rotation angle
+    
     void setup() 
     {
       
@@ -20,6 +21,7 @@ class Hud
     
     rectMode(CENTER);
     noStroke();
+    
     // Metal/Gray Boarders
     fill(#959595);
     rect(width/2, height-40,width+200,180);
@@ -39,7 +41,7 @@ class Hud
      fill(54,54,54);
      rect(width/2,height-40,width-60,150);
     
-    //  Red Butttons    
+    // Red Butttons    
     videoEffect += .01;
     
     colorChange = .001 * frameCount;
@@ -148,6 +150,7 @@ class Hud
  
     }
   
+  // Draw Joy Stick  
     void drawJoystick() 
     {
     
