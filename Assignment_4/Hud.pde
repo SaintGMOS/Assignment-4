@@ -54,7 +54,8 @@ class Hud
     rect(80,860,20,30);
     rect(150,860,50,20);
     ellipse(220,860,30,30);
-    
+    rect(width/2+275,height/2+390,320,40);
+
     
     // White Effect on Red Buttons
     noStroke();

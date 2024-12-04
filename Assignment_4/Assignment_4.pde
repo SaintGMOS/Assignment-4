@@ -4,16 +4,15 @@ PImage pirate; // Image for enemies
 PImage title;
 ArrayList<Enemy> enemies;
 ArrayList<Laser> lasers; // Array list to store lasers
-int score;
 int spawnRate = 50; // Spawn a new enemy every # frames 
 int spawnTimer = 0;
 boolean shotTaken = false; // Variable to track if a shot was taken
 PFont font;
 float effectMoverT;
 float effectMoverS;
-float goal;
 float colorChange;
 int roundedGoal;
+int health;
 
 void setup()
 {
@@ -25,13 +24,11 @@ void setup()
   hud = new Hud();
   enemies = new ArrayList<Enemy>();
   lasers = new ArrayList<Laser>(); // Initialize laser array
-  score = 0;
-  goal = random(300,1000);
-  roundedGoal = round(goal/10) * 10;
+  health = 4;
   font = createFont("8bit.ttf",64); 
   textFont(font);
   frameRate(60);
-    noCursor();
+   noCursor();
   
 }
 
@@ -55,13 +52,13 @@ void draw()
 
   textSize(25);
   fill(0);
-  text("Press Enter to Start",(width/2-155)-effectMoverT , (height/2 + 200)-effectMoverT );
+  text("Press ENTER to Start",(width/2-155)-effectMoverT , (height/2 + 200)-effectMoverT );
   
   }
   
   if(key == ENTER)
   {
-
+  
   spawnTimer++;
   starz.display();
   // Spawn new enemy based on spawnRate
@@ -128,7 +125,7 @@ for (int i = enemies.size() - 1; i >= 0; i--)
         
         enemy.exploded = true; // Mark as exploded
         enemy.explosionTimer = 30; // Explosion duration (e.g., 30 frames)
-        score += 10; // Increment score
+
         
       }
       
@@ -139,6 +136,8 @@ for (int i = enemies.size() - 1; i >= 0; i--)
     
     {
       enemies.remove(i);
+      health -= 1;
+      println(health);
     }
     
   }
@@ -157,25 +156,19 @@ for (int i = enemies.size() - 1; i >= 0; i--)
     if (laser.isOffScreen()) 
     {
       
-      lasers.remove(i); // Remove laser if it goes off the screen
-      
+      lasers.remove(i); // Remove laser if it goes off the screen    
     }
+    
   }
 
 
   hud.display();
   colorChange = .001 * frameCount;
-  fill(map(noise(colorChange), 0, 1, 150, 240), 0, 0);
-  rect(width/2+275,height/2+390,320,40);
-  textSize(25);
-  fill(255);
-  text("Score " + score + "  Goal " + roundedGoal ,(width/2+135)-effectMoverT , (height/2 + 400)-effectMoverT );
-  if(roundedGoal == score)
-  {
-    
-    stop();
+  textSize(18);
+  fill(255,255,255,220);
+  text("Health " + health, width/2-53,67);
   
-  }
+ 
   
 }
 
