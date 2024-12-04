@@ -2,6 +2,7 @@ Starz starz;
 Hud hud;
 PImage pirate; // Image for enemies
 PImage title;
+PImage back;
 ArrayList<Enemy> enemies;
 ArrayList<Laser> lasers; // Array list to store lasers
 int spawnRate = 50; // Spawn a new enemy every # frames 
@@ -13,6 +14,11 @@ float effectMoverS;
 float colorChange;
 int roundedGoal;
 int health;
+int initialCircle;
+int circleRepeat;
+boolean repeat;
+boolean gameOver;
+boolean startScreen;
 
 void setup()
 {
@@ -20,15 +26,21 @@ void setup()
   size(1000, 900); // Set the window size to 1000x900 pixels
   pirate = loadImage("SP1.png"); // Load the enemy image
   title = loadImage("SPT.png");
+  back = loadImage("BSPACE.png");
   starz = new Starz();
   hud = new Hud();
   enemies = new ArrayList<Enemy>();
   lasers = new ArrayList<Laser>(); // Initialize laser array
+  circleRepeat = 0;
+ initialCircle = 5;
   health = 4;
   font = createFont("8bit.ttf",64); 
   textFont(font);
   frameRate(60);
-   noCursor();
+  noCursor();
+  repeat = false;
+  gameOver = false;
+  startScreen = true;
   
 }
 
@@ -37,9 +49,9 @@ void draw()
   background(0);
   effectMoverT = random(0,1);
   effectMoverS = random(0,10);
+ 
   // Start Screen 
-  
-   if(key != ENTER)
+   if(startScreen)
   {
     
   rectMode(CENTER);  
@@ -54,11 +66,46 @@ void draw()
   fill(0);
   text("Press ENTER to Start",(width/2-155)-effectMoverT , (height/2 + 200)-effectMoverT );
   
-  }
-  
-  if(key == ENTER)
+   if(key == ENTER && keyPressed)
   {
   
+   startScreen = false;
+   startNewGame();
+   repeat = true;
+  }
+ 
+  }
+  
+  else if(gameOver)
+  {
+  
+    rectMode(CENTER);
+    fill(255, 0, 0);
+    initialCircle = 5;
+    circleRepeat += 15;
+    for(int i = 0; i < 5; i++)
+    {
+      stroke(20);
+      ellipse(width/2, height/2, initialCircle+circleRepeat, initialCircle+circleRepeat);
+      
+    }
+    image(pirate,(width/2+30),(height/2),600+effectMoverS,500+effectMoverS);  
+    image(back,(width/2),(height/2+250),100,100);  
+  
+   if (keyPressed && key == BACKSPACE) 
+   {
+      gameOver = false;
+      startScreen = true;
+    }
+  }
+  
+  
+  
+  
+  
+ 
+  else if(repeat)
+{
   spawnTimer++;
   starz.display();
   // Spawn new enemy based on spawnRate
@@ -168,6 +215,15 @@ for (int i = enemies.size() - 1; i >= 0; i--)
   fill(255,255,255,220);
   text("Health " + health, width/2-53,67);
   
+  if( health <= 0)
+  {
+    repeat = false;
+    gameOver = true;
+  
+  }
+  
+  
+  
  
   
 }
@@ -181,4 +237,14 @@ void mousePressed()
   lasers.add(new Laser(width/2, height-90, mouseX, mouseY, laserColor)); //You can use this to change thee origin
   
   
+}
+
+void startNewGame()
+{
+  enemies.clear();
+  lasers.clear();
+  health = 4;
+  spawnTimer = 0;
+  repeat = false;
+
 }
