@@ -8,7 +8,9 @@ class Hud
     float angle = 0; // Initial rotation angle
     void setup() 
     {
+      
     turret = loadImage("Turret.png"); // Load the image
+    
     }
 
   void display()
@@ -56,7 +58,6 @@ class Hud
     ellipse(220,860,30,30);
     rect(width/2+275,height/2+390,320,40);
 
-    
     // White Effect on Red Buttons
     noStroke();
     fill(map(noise(colorChange), 0, 1, 150, 255), 255, 255,150); // White
@@ -71,7 +72,6 @@ class Hud
     rect(250,map(noise(videoEffect),0,1,785,805),20,1);
     rect(250,map(noise(videoEffect),0,1,790,810),20,1);
     rect(250,map(noise(videoEffect),0,1,795,815),20,1);
-    
     
     rect(140,map(noise(videoEffect),0,1,815,835),175,1);
     
@@ -91,153 +91,153 @@ class Hud
     
     rect(220,map(noise(videoEffect),0,1,845.,875),30,1);
      
-  // Health Bars Red
-  noStroke();
-  fill(255,0,0,150);
-  rect(width/2, 60,90,50);
-  fill(255,0,0,180);
-  stroke(162,0,0);
-  rect(width/2, 60,180,20);
+    // Health Bars Red
+    noStroke();
+    fill(255,0,0,150);
+    rect(width/2, 60,90,50);
+    fill(255,0,0,180);
+    stroke(162,0,0);
+    rect(width/2, 60,180,20);
     
-  // Health Bars White
-  noStroke();
-  fill(map(noise(colorChange), 0, 1, 150, 255), 255, 255,100); // White
-  rect(width/2,map(noise(videoEffect),0,1,50,65),180,1);
-  rect(width/2,map(noise(videoEffect),0,1,25,95),90,1);
+    // Health Bars White
+    noStroke();
+    fill(map(noise(colorChange), 0, 1, 150, 255), 255, 255,100); // White
+    rect(width/2,map(noise(videoEffect),0,1,50,65),180,1);
+    rect(width/2,map(noise(videoEffect),0,1,25,95),90,1);
   
-  // Joystick
-  drawJoystick();
+    // Joystick
+    drawJoystick();
   
   
    
-  // Crosshair
-  noFill();  
-  strokeWeight(.5);
+    // Crosshair
+    noFill();  
+    strokeWeight(.5);
   
-  if(mousePressed)
-  {
-  strokeWeight(1);
-  stroke(255,0,0);
-  }
-  else
-  {
-  stroke(255,255,255,180);
-  }
-  
-  ellipse(mouseX, mouseY, 80, 80);
-  ellipse(mouseX, mouseY, 35, 35);
-  rect(mouseX + 30, mouseY, 45, 1);
-  rect(mouseX  - 30, mouseY, 45, 1);
-  rect(mouseX , mouseY - 30, 1, 45);
-  rect(mouseX , mouseY + 30, 1, 45);
-  
-  // Top Left Lines
-  rect(150,100,150,1);
-  rect(75,175,1,150);
-  // Bottom Right Lines
-  rect(150,725,150,1);
-  rect(75,650,1,150);
-  // Top Right Lines
-  rect(850,100,150,1);
-  rect(925,175,1,150);
-  // Bottom Right Lines
-  rect(850,725,150,1);
-  rect(925,650,1,150);
-  
-  noStroke();
- 
-  }
-  
-  void drawJoystick() 
-  {
-    
-    float baseX = width / 2;
-    float baseY = height +40;
-    float stickWidth = 40;
-    float stickHeight = 100;
-
-    // Calculate joystick tilt based on mouseX position
-    float centerX = width / 2;
-    float range = 60; // Range for the joystick tilt
-
-    // Calculate tilt based on horizontal mouse position
-    float dx = mouseX - centerX;
-    float maxTilt = radians(10); // Maximum joystick tilt in radians
-    float tiltX = map(constrain(dx, -range, range), -range, range, -maxTilt, maxTilt);
-    
-
-    pushMatrix();
-    translate(baseX, baseY);
-    
-    // Stick with tilt
-    if (!mousePressed) 
-    {     
-      fill(#FF0000); // Red Button
-      pushMatrix();
-      rotate(tiltX);
-      rect(0, -stickHeight - 50, stickWidth * 0.2, 5);
-      popMatrix();
-    }
-
-    // Base stick with tilt
-    stroke(28,28,28);
+    if(mousePressed)
+    {
     strokeWeight(1);
-    fill(#555555);
-    pushMatrix();
-    rotate(tiltX); // Apply rotation based on tiltX
-    rect(0, -stickHeight, stickWidth * 0.4, stickHeight);
-    rect(0, -stickHeight+25, 20, 10);
-    popMatrix();
-
-    // Base of joystick
-    fill(#313131);
-    rect(0, 0, 275, 30); // Adjusted base position to match joystick
-
-    popMatrix();
-    
-    // Grey Rectangle Covering the end of th joystick
-    fill(#555555);
-    ellipse(width/2,height,80,30);
-    
+    stroke(255,0,0);
     }
+    else
+    {
+    stroke(255,255,255,180);
+    }
+  
+    ellipse(mouseX, mouseY, 80, 80);
+    ellipse(mouseX, mouseY, 35, 35);
+    rect(mouseX + 30, mouseY, 45, 1);
+    rect(mouseX  - 30, mouseY, 45, 1);
+    rect(mouseX , mouseY - 30, 1, 45);
+    rect(mouseX , mouseY + 30, 1, 45);
+  
+    // Top Left Lines
+    rect(150,100,150,1);
+    rect(75,175,1,150);
+    // Bottom Right Lines
+    rect(150,725,150,1);
+    rect(75,650,1,150);
+    // Top Right Lines
+    rect(850,100,150,1);
+    rect(925,175,1,150);
+    // Bottom Right Lines
+    rect(850,725,150,1);
+    rect(925,650,1,150);
+  
+    noStroke();
+ 
+    }
+  
+    void drawJoystick() 
+    {
+    
+      float baseX = width / 2;
+      float baseY = height +40;
+      float stickWidth = 40;
+      float stickHeight = 100;
+
+      // Calculate joystick tilt based on mouseX position
+      float centerX = width / 2;
+      float range = 60; // Range for the joystick tilt
+
+      // Calculate tilt based on horizontal mouse position
+      float dx = mouseX - centerX;
+      float maxTilt = radians(10); // Maximum joystick tilt in radians
+      float tiltX = map(constrain(dx, -range, range), -range, range, -maxTilt, maxTilt);
+    
+
+      pushMatrix();
+      translate(baseX, baseY);
+    
+      // Stick with tilt
+      if (!mousePressed) 
+      {     
+        fill(#FF0000); // Red Button
+        pushMatrix();
+        rotate(tiltX);
+        rect(0, -stickHeight - 50, stickWidth * 0.2, 5);
+        popMatrix();
+      }
+
+      // Base stick with tilt
+      stroke(28,28,28);
+      strokeWeight(1);
+      fill(#555555);
+      pushMatrix();
+      rotate(tiltX); // Apply rotation based on tiltX
+      rect(0, -stickHeight, stickWidth * 0.4, stickHeight);
+      rect(0, -stickHeight+25, 20, 10);
+      popMatrix();
+
+      // Base of joystick
+      fill(#313131);
+      rect(0, 0, 275, 30); // Adjusted base position to match joystick
+
+      popMatrix();
+    
+      // Grey Rectangle Covering the end of th joystick
+      fill(#555555);
+      ellipse(width/2,height,80,30);
+    
+      }
     
      
- void drawTurret() 
-  {
+   void drawTurret() 
+    {
     
-    float baseXT = width / 2;
-    float baseYT = height -70;
-    float stickWidthT = 80;
-    float stickHeightT = 90;
+      float baseXT = width / 2;
+      float baseYT = height -70;
+      float stickWidthT = 80;
+      float stickHeightT = 90;
 
-    // Calculate jTurret tilt based on mouseX position
-    float centerXT = width / 2;
-    float rangeT = 160; // Range for the Turret tilt / Speed of how fast it turns
+      // Calculate jTurret tilt based on mouseX position
+      float centerXT = width / 2;
+      float rangeT = 160; // Range for the Turret tilt / Speed of how fast it turns
 
-    // Calculate tilt based on horizontal mouse position
-    float dxT = mouseX - centerXT;
-    float maxTiltT = radians(50); // Maximum Turret tilt in radians 
-    float tiltXT = map(constrain(dxT, -rangeT, rangeT), -rangeT, rangeT, -maxTiltT, maxTiltT);
+      // Calculate tilt based on horizontal mouse position
+      float dxT = mouseX - centerXT;
+      float maxTiltT = radians(50); // Maximum Turret tilt in radians 
+      float tiltXT = map(constrain(dxT, -rangeT, rangeT), -rangeT, rangeT, -maxTiltT, maxTiltT);
     
 
-    pushMatrix();
-    translate(baseXT, baseYT);
+      pushMatrix();
+      translate(baseXT, baseYT);
     
-    // Stick with tilt
-    if (!mousePressed) 
-    {     
+      // Stick with tilt
+      if (!mousePressed) 
+      {     
       
-      fill(36,36,36); // Red Button
+        fill(36,36,36); // Red Button
       
-    }
+      }
     
-    pushMatrix();
-     rotate(tiltXT);
-     rect(0, -stickHeightT - 50, 15, 15);
-     popMatrix();
+       pushMatrix();
+       rotate(tiltXT);
+       rect(0, -stickHeightT - 50, 15, 15);
+       popMatrix();
     
 
-    // Base stick with tilt
+      // Base stick with tilt
     stroke(28,28,28);
     strokeWeight(1);
     fill(#555555);
@@ -253,16 +253,8 @@ class Hud
     rect(0, -stickHeightT-35, 20, 10);
     rect(0, -stickHeightT-45, 20, 10);
     popMatrix();
-
-
+    
     popMatrix();
-    
-   
+
     }
-    
-    
-    
-    
-    
-    
 }

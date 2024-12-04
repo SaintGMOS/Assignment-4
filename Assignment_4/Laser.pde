@@ -28,13 +28,16 @@ class Laser
     // Update the position 
     x += dx;
     y += dy;
+    
   }
 
   void display()
   {
+    
     fill(laserColor);
     noStroke();
     ellipse(x, y, random(5,20), random(5,20)); 
+    
   }
 
 
@@ -44,6 +47,4 @@ class Laser
     return y < 0 || x < 0 || x > width || y > height; // Check if the laser is off screen
     
   }
-  
-  
 }

@@ -5,7 +5,7 @@ PImage title;
 PImage back;
 ArrayList<Enemy> enemies;
 ArrayList<Laser> lasers; // Array list to store lasers
-int spawnRate = 50; // Spawn a new enemy every # frames 
+int spawnRate = 40; // Spawn a new enemy every # frames 
 int spawnTimer = 0;
 boolean shotTaken = false; // Variable to track if a shot was taken
 PFont font;
@@ -89,6 +89,7 @@ void draw()
       ellipse(width/2, height/2, initialCircle+circleRepeat, initialCircle+circleRepeat);
       
     }
+    
     image(pirate,(width/2+30),(height/2),600+effectMoverS,500+effectMoverS);  
     image(back,(width/2),(height/2+250),100,100);  
   
@@ -99,15 +100,12 @@ void draw()
     }
   }
   
-  
-  
-  
-  
- 
   else if(repeat)
 {
+  
   spawnTimer++;
   starz.display();
+  
   // Spawn new enemy based on spawnRate
    if (spawnTimer >= spawnRate) 
   {
@@ -118,33 +116,33 @@ void draw()
   }
 
    // Update and display all enemies
-for (int i = enemies.size() - 1; i >= 0; i--)
-{
-  
-  Enemy enemy = enemies.get(i);
-
-  if (enemy.exploded) 
+  for (int i = enemies.size() - 1; i >= 0; i--)
   {
+  
+    Enemy enemy = enemies.get(i);
+
+    if (enemy.exploded) 
+    {
     
     // Display explosion particles
-    for (int j = 0; j < 10; j++)
-    {
+      for (int j = 0; j < 10; j++)
+      {
       
-      stroke(random(255), random(255), random(255));
-      strokeWeight(2);
+        stroke(random(255), random(255), random(255));
+        strokeWeight(2);
 
-      // Adjust explosion particle positions to move with the mouse
-      float explosionShiftX = random(30, 100);
-      float explosionShiftY = random(30, 100);
+        // Adjust explosion particle positions to move with the mouse
+        float explosionShiftX = random(30, 100);
+        float explosionShiftY = random(30, 100);
 
-      // Calculate the particle's(Basically Explosion Position but idk) position relative to the mouse
-      float particleX = enemy.position.x - (mouseX - enemy.position.x) * .7;
-      float particleY = enemy.position.y - (mouseY - enemy.position.y) * .7;
+        // Calculate the particle's(Basically Explosion Position but idk) position relative to the mouse
+        float particleX = enemy.position.x - (mouseX - enemy.position.x) * .7;
+        float particleY = enemy.position.y - (mouseY - enemy.position.y) * .7;
 
-      fill(random(255));
-      ellipse(particleX, particleY, explosionShiftX, explosionShiftY);
-      
-    }
+        fill(random(255));
+        ellipse(particleX, particleY, explosionShiftX, explosionShiftY);
+        
+      }
 
 
       // Decrease the explosion timer
@@ -156,10 +154,10 @@ for (int i = enemies.size() - 1; i >= 0; i--)
         
         enemies.remove(i);
         
-        
       }
       
     }
+    
     else 
     {
       
@@ -172,8 +170,7 @@ for (int i = enemies.size() - 1; i >= 0; i--)
         
         enemy.exploded = true; // Mark as exploded
         enemy.explosionTimer = 30; // Explosion duration (e.g., 30 frames)
-
-        
+  
       }
       
     }
@@ -182,9 +179,11 @@ for (int i = enemies.size() - 1; i >= 0; i--)
     if (enemy.position.y > height + enemy.size / 2) 
     
     {
+      
       enemies.remove(i);
       health -= 1;
       println(health);
+      
     }
     
   }
@@ -208,7 +207,6 @@ for (int i = enemies.size() - 1; i >= 0; i--)
     
   }
 
-
   hud.display();
   colorChange = .001 * frameCount;
   textSize(18);
@@ -222,12 +220,7 @@ for (int i = enemies.size() - 1; i >= 0; i--)
   
   }
   
-  
-  
- 
-  
 }
-
 }
 void mousePressed()
 {
@@ -241,10 +234,11 @@ void mousePressed()
 
 void startNewGame()
 {
+  
   enemies.clear();
   lasers.clear();
   health = 4;
   spawnTimer = 0;
   repeat = false;
-
+  
 }

@@ -16,10 +16,12 @@ class Stars
   float opacity;  // Opacity of the star
    Stars(float xPosition, float yPosition, float starOpacity)
     {
+      
     x = xPosition; // Set X position
     y = yPosition; // Set Y position
     opacity = starOpacity;  // Set the opacity
-  }
+    
+    }
   
  
   void display()
@@ -37,10 +39,12 @@ class Stars
 
 class Starz
 {
+  
   ArrayList<Stars> starCapacity;
 
 Starz() 
 {
+  
     int numberOfStars =  800;
     starCapacity = new ArrayList<Stars>();
     // Initialize the stars with random positions
@@ -50,18 +54,20 @@ Starz()
       float starY = random(-height, 2 * height);
       float starOpacity = random(50,255);  // Random opacity
       starCapacity.add(new Stars(starX, starY, starOpacity)); 
+      
     }
+    
   }
   
     void display()
   {
+    
     for (int i = 0; i < starCapacity.size(); i++) 
     {
+      
     Stars s = starCapacity.get(i); // 
     s.display(); // Display each star with movement
+    
   }
-
 }
-
-
 }

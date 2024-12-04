@@ -35,6 +35,7 @@ class Enemy
 
     // Constrain enemy within screen bounds
     position.x = constrain(position.x, 0 + size / 2, width - size / 2);
+    
   }
 
   void display() 
@@ -47,11 +48,13 @@ class Enemy
       image(pirate, position.x, position.y, size, size); // Display the pirate image
       
     }
+    
   }
 
   // Placeholder for hit detection 
   boolean checkHit(float mouseX, float mouseY) 
   {
+    
     // Check if the mouse position is within the enemy's bounding circle
     float distanceToMouse = dist(mouseX, mouseY, position.x, position.y);
 
@@ -64,5 +67,6 @@ class Enemy
       
     }
     return false;
-  }
+    
+  } 
 }
